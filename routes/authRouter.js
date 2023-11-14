@@ -24,4 +24,26 @@ router.post('/signup', async (req, res) => {
     }
 });
 
+//Not finished!!!
+// router.put('/profile/edit', async (req, res) => {
+//     const {email, password} = req.body;
+//     try {
+//             const user = await User.findByIdAndUpdate(req.user._id, {email, password});
+//             res.status(200).json({user: user._id});
+//      } catch(ex) {
+//         console.log(ex);
+//         res.status(400).send('Error, user not updated');
+//     }
+// });
+
+// router.delete('/profile/delete', async (req, res) => {
+//     try {
+//         const user = await User.findByIdAndDelete(req.user._id);
+//         res.status(200).json({user: user._id});
+//     } catch(ex) {
+//         console.log(ex);
+//         res.status(400).send('Error, user not deleted');
+//     }
+// });
+
 module.exports = router;

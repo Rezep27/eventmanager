@@ -10,12 +10,9 @@
 
 <script>
     const form = document.querySelector('form');
-    
-    //get values
-    
 
     form.addEventListener('submit', async(e)=>{
-        try { //BROKEN, DOESNT WORK
+        try {
             e.preventDefault();
             const email = form.email.value;
             const password = form.password.value;

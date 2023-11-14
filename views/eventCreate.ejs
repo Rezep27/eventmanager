@@ -1,0 +1,41 @@
+<%- include('partials/header') %>
+
+<h2>Create Event</h2>
+<form action="/events/create">
+    <input type="text" name="name" required />
+    <div class="name error"></div>
+    <input type="text" name="price" required />
+    <div class="price error"></div>
+    <input type="text" name="description" required />
+    <div class="description error"></div>
+    <button>Create event</button>
+</form>
+
+<script>
+    const form = document.querySelector('form');
+
+    form.addEventListener('submit', async(e)=>{
+        try {
+            e.preventDefault();
+            const name = form.name.value;
+            const price = form.price.value;
+            const description = form.description.value;
+            
+        const res = await fetch('/events/create', {
+            method: 'post',
+            body: JSON.stringify({name, price, description}),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const data = await res.json();
+        console.log(data);
+    } catch(ex) {
+        console.error("folloing error occured: ", ex);
+    }
+    });
+
+    
+</script>
+
+<%- include('partials/footer') %>
