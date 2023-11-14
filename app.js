@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const { default: mongoose } = require('mongoose');
 require('dotenv').config();
 const authRouter = require('./routes/authRouter');
+const eventRouter = require('./routes/eventRouter');
 
 //middleware
 app.use(express.static('public'));
@@ -24,8 +25,5 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
-app.get('/employees', (req, res) => {
-    res.render('employees');
-});
-
 app.use(authRouter)
+app.use(eventRouter)
