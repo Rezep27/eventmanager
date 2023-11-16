@@ -1,12 +1,18 @@
 <%- include('partials/header') %>
 
-<form action="/signup">
-    <input type="text" name="email" required />
-    <div class="email error"></div>
-    <input type="password" name="password" required />
-    <div class="password error"></div>
-    <button>Sign up</button>
-</form>
+<%- include('partials/nav_bar') %>
+
+<main class="container">
+    <h1>Sign Up</h1>
+
+    <form action="/signup">
+        <input type="text" name="email" required />
+        <div class="email error"></div>
+        <input type="password" name="password" required />
+        <div class="password error"></div>
+        <button>Sign up</button>
+    </form>
+</main>
 
 <script>
     const form = document.querySelector('form');
