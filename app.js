@@ -11,6 +11,7 @@ const Event = require('./models/event');
 app.use(express.static('public'));
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
 
 //view engine
 app.set('view engine', 'ejs');
