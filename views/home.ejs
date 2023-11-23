@@ -1,0 +1,21 @@
+<%- include('partials/header') %>
+
+<%- include('partials/nav_bar') %>
+
+<main class="container">
+    <h2>Event Manager</h2>
+
+    <table class="table table-bordered">
+        <% data.forEach(item => { %>
+            <tr>
+                <th scope="row"><%= item.name %></th>
+                <th scope="row"><%= item.price %></th>
+                <th scope="row"><%= item.description %></th>
+            </tr>
+        <% }); %>
+    </table>
+</main>
+
+<%- include('partials/footer') %>
+
+
