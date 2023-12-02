@@ -90,4 +90,8 @@ router.delete('/events/delete/:id', async (req, res) => {
     } 
 });
 
+router.get('/event1', async (req, res) =>{
+    res.render('event1');
+})
+
 module.exports = router;

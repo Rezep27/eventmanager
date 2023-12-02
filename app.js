@@ -8,7 +8,7 @@ const eventRouter = require('./routes/eventRouter');
 const Event = require('./models/event');
 
 //middleware
-app.use(express.static('public'));
+app.use(express.static('public')); 
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
