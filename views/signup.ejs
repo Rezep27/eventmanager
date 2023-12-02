@@ -1,50 +1,58 @@
-<%- include('partials/header') %>
+<!DOCTYPE html>
+<html lang="en">
 
-<%- include('partials/nav_bar') %>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Form</title>
+    <link rel="stylesheet" type="text/css" href="/css/signup-style.css">
+</head>
 
-<main class="container">
-    <h1>Sign Up</h1>
-    <form action="/signup" method="post" id="signup-form">
-        <input type="email" name="email" placeholder="Email" required />
-        <div class="email error"></div>
-        <input type="password" name="password" placeholder="Password" required />
-        <div class="password error"></div>
-        <button type="submit">Sign up</button>
+<body>
+
+    <form action="/signup" method="post" id="signup-form" class="body-form">
+        <div class="container">
+            <h1 style="margin-bottom: 10%; margin-top: 10%;">Create an account</h1>
+
+            <div class="name-container form-row">
+                <div class="col-md-6 form-group">
+                    <input type="text" class="form-control" name="firstName" required style="width: 90%;">
+                    <label for="firstName">First Name</label>
+                </div>
+                <div class="col-md-6 form-group">
+                    <input type="text" class="form-control" name="lastName" required>
+                    <label for="lastName">Last Name</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="email" class="form-control" name="email" required>
+                <label for="email">Email</label>
+            </div>
+
+            <div class="form-group">
+                <input type="password" class="form-control" name="password" required>
+                <label for="password">Password</label>
+            </div>
+
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" name="remember" id="remember">Remember me
+            </div>
+
+            <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+
+            <div class="clearfix">
+                <button type="submit" class="signupbtn">Join Us!</button>
+            </div>
+
+            <div class="signin">
+                <p>Already have a Gathergrid account? <a href="/login">Sign in</a>.</p>
+            </div>
+
+            <hr>
+        </div>
     </form>
-</main>
 
-<script>
-    const form = document.getElementById('signup-form');
+</body>
 
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const email = form.email.value;
-        const password = form.password.value;
-
-        try {
-            const res = await fetch('/signup', {
-                method: 'post',
-                body: JSON.stringify({ email, password }),
-                headers: {'Content-Type': 'application/json'}
-            });
-
-            // Check if the response is JSON
-            const contentType = res.headers.get('content-type');
-            if (contentType && contentType.includes('application/json')) {
-                const data = await res.json();
-                console.log(data);
-                // Handle success (e.g., redirecting to another page)
-            } else {
-                // If the response is not JSON, read it as text
-                const text = await res.text();
-                console.error("Error response:", text);
-                // Handle non-JSON error response (e.g., display error message to user)
-            }
-        } catch (ex) {
-            console.error("Following error occurred: ", ex);
-        }
-    });
-</script>
-
-<%- include('partials/footer') %>
-``
+</html>
