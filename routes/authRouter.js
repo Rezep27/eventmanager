@@ -27,7 +27,9 @@ router.post('/signup', async (req, res) => {
         const token = createToken(user._id);
 
         res.cookie('jwt', token, { httpOnly: true, maxAge: 3 * 24 * 60 * 60 * 1000 });
-        res.status(201).json({ user: user._id });
+        // Create and send token
+        res.status(201).json({ token: token, user: user._id });
+
     }
     catch (ex) {
         console.log(ex);
@@ -67,27 +69,61 @@ router.post('/login', async (req, res) => {
 });
 
 
-
-//Not finished!!!
-// router.put('/profile/edit', async (req, res) => {
-//     const {email, password} = req.body;
-//     try {
-//             const user = await User.findByIdAndUpdate(req.user._id, {email, password});
-//             res.status(200).json({user: user._id});
-//      } catch(ex) {
-//         console.log(ex);
-//         res.status(400).send('Error, user not updated');
-//     }
-// });
-
-// router.delete('/profile/delete', async (req, res) => {
-//     try {
-//         const user = await User.findByIdAndDelete(req.user._id);
-//         res.status(200).json({user: user._id});
-//     } catch(ex) {
-//         console.log(ex);
-//         res.status(400).send('Error, user not deleted');
-//     }
-// });
+const requireAuth = async (req, res, next) => {
+    const token = req.cookies.jwt;
+  
+    if (token) {
+      try {
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = { _id: decodedToken.id };
+        next();
+      } catch (err) {
+        res.status(401).json({ error: 'Not authorized' });
+      }
+    } else {
+      res.status(401).json({ error: 'Not authorized' });
+    }
+  };
+  
+  router.use('/profile', requireAuth);
+  
+  router.put('/profile/edit', async (req, res) => {
+    try {
+      const { email, password } = req.body;
+      const userId = req.user._id;
+      let updateData = {};
+  
+      if (email) {
+        const existingUser = await User.findOne({ email });
+        if (existingUser && existingUser._id.toString() !== userId) {
+          return res.status(400).json({ error: 'Email is already in use' });
+        }
+        updateData.email = email;
+      }
+  
+      if (password) {
+        const salt = await bcrypt.genSalt();
+        updateData.password = await bcrypt.hash(password, salt);
+      }
+  
+      const updatedUser = await User.findByIdAndUpdate(userId, updateData, { new: true });
+      res.status(200).json({ user: updatedUser._id });
+    } catch (ex) {
+      console.log(ex);
+      res.status(500).json({ error: 'Error, user not updated' });
+    }
+  });
+  
+  router.delete('/profile/delete', async (req, res) => {
+    try {
+      const userId = req.user._id;
+      await User.findByIdAndDelete(userId);
+      res.clearCookie('jwt');
+      res.status(200).json({ message: 'User successfully deleted' });
+    } catch (ex) {
+      console.log(ex);
+      res.status(500).json({ error: 'Error, user not deleted' });
+    }
+  });
 
 module.exports = router;
