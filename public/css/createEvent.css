@@ -1,0 +1,136 @@
+h1,
+h2,
+form {
+    margin: 0;
+    padding: 18px;
+}
+
+body {
+    background-color: #efefed;
+}
+
+.main-eventCreate {
+    width: 85%;
+    margin: 50px auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'Times New Roman', serif;
+
+}
+
+.event-form {
+    flex-direction: column;
+    background-color: #efefed;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-family: 'Times New Roman', serif;
+
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+}
+
+button {
+    background-color: #04AA6D;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #027353;
+}
+
+.error {
+    color: #ff0000;
+    margin-top: 5px;
+}
+
+.form-group:not(:last-child) {
+    margin-bottom: 30px;
+}
+
+.main-eventCreate {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.form-container {
+    width: 60%;
+}
+
+.freeAdmission {
+    margin-top: -15px;
+    margin-bottom: 25px;
+    margin-right: 10px;
+}
+
+.freeAdmission input {
+    margin-right: 5px;
+    width: 15px;
+}
+
+.image-section {
+    width: 35%;
+    margin-right: 12px;
+}
+
+.not-found {
+    margin-bottom: 20px;
+    margin-top: 27%;
+}
+
+.not-found img {
+    max-width: 100%;
+}
+
+.upload-section {
+    margin-top: 20px;
+}
+
+.time-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.schedule {
+    width: 70%;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.time-container input {
+    margin-right: 10px;
+    margin-left: 5%;
+}
+
+.to-label {
+    margin: 0 10px;
+    font-weight: bold;
+}

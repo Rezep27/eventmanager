@@ -33,7 +33,10 @@ router.post('/signup', async (req, res) => {
     }
     catch (ex) {
         console.log(ex);
-        res.status(400).send('Error, user not created');
+        res.status(400).render('error', { 
+          stausCode: 400,
+          errorMessage: 'User not created' 
+        });
     }
 });
 
@@ -49,13 +52,19 @@ router.post('/login', async (req, res) => {
         // Find the user by email
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(400).send('User not found');
+            res.status(400).render('error', { 
+              stausCode: 400,
+              errorMessage: 'User not found'
+            });
         }
 
         // Compare password
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(400).send('Password is incorrect');
+            res.status(400).render('error', { 
+              stausCode: 400,
+              errorMessage: 'Password is incorrect'
+            });
         }
 
         // Create and send token
@@ -64,7 +73,10 @@ router.post('/login', async (req, res) => {
         res.status(200).json({ user: user._id });
     } catch (ex) {
         console.log(ex);
-        res.status(400).send('Login error');
+        res.status(400).render('error', { 
+          stausCode: 400,
+          errorMessage: 'Login error'
+        });
     }
 });
 
@@ -78,14 +90,24 @@ const requireAuth = async (req, res, next) => {
         req.user = { _id: decodedToken.id };
         next();
       } catch (err) {
-        res.status(401).json({ error: 'Not authorized' });
+        res.status(403).render('error', { 
+          statusCode: 403,
+          errorMessage: 'Access Denied - Not authorized' 
+        });
       }
     } else {
-      res.status(401).json({ error: 'Not authorized' });
+      res.status(403).render('error', { 
+        statusCode: 403,
+        errorMessage: 'Access Denied - Not authorized' 
+      });
     }
   };
   
   router.use('/profile', requireAuth);
+
+  router.get('/profile', async (req, res, next) => {
+    res.render('profile');
+  });
   
   router.put('/profile/edit', async (req, res) => {
     try {

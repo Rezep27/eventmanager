@@ -1,46 +1,111 @@
+
 <%- include('partials/header') %>
 
 <%- include('partials/nav_bar') %>
-<main class="container">
-<h2>Create Event</h2>
-    <form action="/events/create">
-        <input type="text" name="name" required />
-        <div class="name error"></div>
-        <input type="text" name="price" required />
-        <div class="price error"></div>
-        <input type="text" name="description" required />
-        <div class="description error"></div>
-        <button>Create event</button>
-    </form>
 
-    <h1 id="eventCreationConfirmation"></h1>
-</main>
+  <!-- Create Event Stylesheet -->
+  <link rel="stylesheet" href="/css/createEvent.css">
 
+            <main class="main-eventCreate">
+                <div class="form-container">
+                    <h2 style="font-weight: bold;">Add an Event</h2>
+                    <p>Complete the form to craft your event in the vibrant heart of Toronto. Ready to join the
+                        experience?</p>
+                    <form action="/events/create" method="post" id="event-create-form" class="event-form">
+                        <div class="form-group">
+                            <label for="name">Event title:</label>
+                            <input type="text" id="name" name="name" placeholder="What's the name of your event"
+                                required />
+                            <div class="error" id="name-error"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="price">Price (per ticket):</label>
+                            <input type="text" id="price" name="price" placeholder="Make everyone enjoy it" required />
+                            <div class="error" id="price-error"></div>
+                        </div>
+
+                        <div class="freeAdmission">
+                            <input type="checkbox" id="freeAdmission" name="freeAdmission"> Free Admission
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Description:</label>
+                            <p>Tell me about the event, for example what type of event is it?</p>
+                            <textarea id="description" name="description" placeholder="About..." required></textarea>
+                            <div class="error" id="description-error"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="category">Event Category:</label>
+                            <select id="category" name="category" required>
+                                <option value="" disabled selected>Select event category</option>
+                                <option value="concerts">Concerts</option>
+                                <option value="parties">Parties</option>
+                                <option value="socials">Socials</option>
+                                <option value="food">Food</option>
+                            </select>
+                            <div class="error" id="category-error"></div>
+                        </div>                        
+
+                        <div class="form-group">
+                            <label for="address">Address:</label>
+                            <p>Just Toronto area will be aproved</p>
+                            <input type="text" id="address" name="address" placeholder="Where's going to be?"
+                                required />
+                            <div class="error" id="address-error"></div>
+                        </div>
+                        <div class="schedule">
+                            <div class="form-group">
+                                <label for="date">Event Date and time:</label>
+                                <input type="date" id="date" name="date" required />
+                                <div class="error" id="date-error"></div>
+                            </div>
+
+                            <div class="time-container">
+                                <input type="time" id="startTime" name="startTime" required />
+                                <span class="to-label">To</span>
+                                <input type="time" id="endTime" name="endTime" required />
+                            </div>
+                        </div>
+                        <button type="submit" style="margin-top: 3%;">Create Event</button>
+
+                </div>
+
+                <div class="image-section">
+                    <div class="not-found">
+                        <h4 style="font-weight: bold;">Event Image</h4>
+                        <p>Show the image that best suits your event</p>
+                        <img src="/images/notfound.png" alt="Not Found" id="selected-image">
+                    </div>
+                    <div class="upload-section">
+                        <label for="image-upload">Upload Image</label>
+                        <input type="file" id="image-upload" name="image-upload" accept="image/*" />
+                    </div>
+                </div>
+                </form>
+                <h1 id="eventCreationConfirmation"></h1>
+
+            </main>
+        <%- include('partials/footer') %>
+
+</html>
 <script>
     const form = document.querySelector('form');
 
-    form.addEventListener('submit', async(e)=>{
-        try {
-            e.preventDefault();
-            const name = form.name.value;
-            const price = form.price.value;
-            const description = form.description.value;
-            
-        const res = await fetch('/events/create', {
-            method: 'post',
-            body: JSON.stringify({name, price, description}),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        const data = await res.json();
-
-        document.getElementById('eventCreationConfirmation').innerHTML = "Event created successfully";
-        console.log(data);
-    } catch(ex) {
-        console.error("following error occured: ", ex);
+    try {
+    } catch (ex) {
+        console.error("Following error occurred: ", ex);
     }
-    });  
-</script>
 
-<%- include('partials/footer') %>
+    const freeAdmissionCheckbox = document.getElementById('freeAdmission');
+    const priceInput = document.getElementById('price');
+
+    freeAdmissionCheckbox.addEventListener('change', () => {
+        priceInput.disabled = freeAdmissionCheckbox.checked;
+
+        if (freeAdmissionCheckbox.checked) {
+            priceInput.value = '';
+        }
+    });
+</script>
