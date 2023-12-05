@@ -1,17 +1,50 @@
 <%- include('partials/header') %>
 
-<%- include('partials/nav_bar') %>
+  <!-- Signup Stylesheet -->
+  <link rel="stylesheet" href="/css/signup-style.css">
 
-<main class="container">
-    <h1>Sign Up</h1>
-    <form action="/signup" method="post" id="signup-form">
-        <input type="email" name="email" placeholder="Email" required />
-        <div class="email error"></div>
-        <input type="password" name="password" placeholder="Password" required />
-        <div class="password error"></div>
-        <button type="submit">Sign up</button>
+    <form action="/signup" method="post" id="signup-form" class="body-form">
+        <div class="container">
+            <h1 style="margin-bottom: 10%; margin-top: 10%;">Create an account</h1>
+
+            <div class="name-container form-row">
+                <div class="col-md-6 form-group">
+                    <input type="text" class="form-control" name="firstName" required style="width: 90%;">
+                    <label for="firstName">First Name</label>
+                </div>
+                <div class="col-md-6 form-group">
+                    <input type="text" class="form-control" name="lastName" required>
+                    <label for="lastName">Last Name</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="email" class="form-control" name="email" required>
+                <label for="email">Email</label>
+            </div>
+
+            <div class="form-group">
+                <input type="password" class="form-control" name="password" required>
+                <label for="password">Password</label>
+            </div>
+
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" name="remember" id="remember">Remember me
+            </div>
+
+            <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+
+            <div class="clearfix">
+                <button type="submit" class="signupbtn">Join Us!</button>
+            </div>
+
+            <div class="signin">
+                <p>Already have a Gathergrid account? <a href="/login">Log in</a>.</p>
+            </div>
+
+            <hr>
+        </div>
     </form>
-</main>
 
 <script>
     const form = document.getElementById('signup-form');
@@ -45,6 +78,4 @@
         }
     });
 </script>
-
-<%- include('partials/footer') %>
-``
+</html>

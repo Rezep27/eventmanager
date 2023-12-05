@@ -8,7 +8,7 @@ const eventRouter = require('./routes/eventRouter');
 const Event = require('./models/event');
 
 //middleware
-app.use(express.static('public'));
+app.use(express.static('public')); 
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
@@ -22,7 +22,8 @@ mongoose.connect(connectionString)
 .then( res => app.listen(process.env.PORT, () => console.log('Server running on port 3000')))
 .catch(error => console.log(error));
 
-//routes
+
+// Default routes
 app.get('/', async (req, res) => {
     // Get data from database
     try {
@@ -38,3 +39,11 @@ app.get('/', async (req, res) => {
 
 app.use(authRouter)
 app.use(eventRouter)
+
+// Error Page Not Found
+app.get('*', function(req, res){
+    res.status(404).render('error', {
+        statusCode: 404,
+        errorMessage: 'Page Not Found'
+    });
+});
