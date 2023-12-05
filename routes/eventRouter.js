@@ -94,4 +94,8 @@ router.get('/event1', async (req, res) =>{
     res.render('event1');
 })
 
+router.get('/event2', async (req, res) =>{
+    res.render('event2');
+})
+
 module.exports = router;
