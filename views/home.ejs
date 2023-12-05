@@ -2,19 +2,73 @@
 
 <%- include('partials/nav_bar') %>
 
-<main class="container">
-    <h2>Event Manager</h2>
+<div class="container">
+    <img src="/images/banner.png" alt="Banner Image" class="img-fluid">
+</div>
 
-    <table class="table table-bordered">
-        <% data.forEach(item => { %>
-            <tr>
-                <th scope="row"><%= item.name %></th>
-                <th scope="row"><%= item.price %></th>
-                <th scope="row"><%= item.description %></th>
-            </tr>
-        <% }); %>
-    </table>
-</main>
+
+<!-- Banner Start -->
+<section class="section banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10">
+                 <h2 class="cd-headline clip is-full-width mb-4 ">
+                    The Best Events <br>
+                    <span class="cd-words-wrapper text-color">
+                        <b class="is-visible"> </b>
+                        <b>In your Area.</b>
+                        <b>All the Time.</b>
+                    </span>
+                </h2>
+                <p>Whether you're hungry for local community events, eager to learn through workshops, or excited to enjoy some entertainment, Gather Grid is your portal to a world brimming with opportunities. Explore, engage, and create lasting memories with us!
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Banner End -->
+
+
+<%- include('partials/carousel') %>
+
+
+<!-- Service start -->
+<section class="section service-home border-top">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6">
+				<h2 class="mb-2 ">Events Your Way!</h2>
+				<p class="mb-5">Personalize your event experience with unprecedented flexibility and choice. Whether attending, hosting, or managing ticket sales, make every event uniquely yours with our user-friendly platform.</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="service-item mb-5" data-aos="fade-left" >
+					<i class="ti-search"></i>
+					<h4 class="my-3">Find Events</h4>
+					<p>Discover and explore events globally, all tailored to your interests.</p>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="service-item mb-5" data-aos="fade-left"  data-aos-delay="450">
+					<i class="ti-announcement"></i>
+					<h4 class="my-3">Host Events</h4>
+					<p>Easily create and manage your events with our user-friendly platform.</p>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="service-item mb-5 mb-lg-0" data-aos="fade-left"  data-aos-delay="750">
+					<i class="ti-ticket"></i>
+					<h4 class="my-3">Buy or Sell Tickets</h4>
+					<p>Smooth and secure ticket transactions for buying or selling.</p>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</section>
+<!-- service end -->
+
 
 <%- include('partials/footer') %>
 
