@@ -6,12 +6,14 @@ require('dotenv').config();
 const authRouter = require('./routes/authRouter');
 const eventRouter = require('./routes/eventRouter');
 const Event = require('./models/event');
+const { checkUser } = require('./utils/checkUser');
 
 //middleware
 app.use(express.static('public')); 
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
+app.use(checkUser);
 
 //view engine
 app.set('view engine', 'ejs');
