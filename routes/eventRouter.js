@@ -9,13 +9,17 @@ router.get('/events/create', (req, res) => {
 
 router.post('/events/create', async (req, res) => {
     try {
-        const {name, price, description} = req.body;
-        const event = await Event.create({name, price, description});
-        res.status(201).json({event: event._id});
+        const {name, price, description, category, address, date, startTime, endTime} = req.body;
+        const event = await Event.create({name, price, description, category, address, date, startTime, endTime});
+        res.status(201).send('/');
+        console.log("Event created successfully. Event ID: " + event._id);
     }
     catch(ex) {
         console.log(ex);
-        res.status(400).send('Error, event not created');
+        res.status(400).render('error', { 
+            stausCode: 400,
+            errorMessage: 'Event not created' 
+        });
     }
 });
 
@@ -26,7 +30,10 @@ router.get('/events/view', async (req, res) => {
 
         res.render('eventView', {data});
     } catch (e) {
-        res.status(500).send('Error fetching data');
+        res.status(500).render('error', { 
+            stausCode: 500,
+            errorMessage: 'Error fetching data' 
+        });
         console.log(e);
     } 
 });
