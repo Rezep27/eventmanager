@@ -1,37 +1,72 @@
 <%- include('partials/header') %>
-    <%- include('partials/nav_bar') %>
+<%- include('partials/nav_bar') %>
 
-     <!-- Login Stylesheet -->
-    <link rel="stylesheet" href="/css/login.css">
-            <div class="content">
-                <div class="wMessage-container">
-                    <div class="wMessage">Welcome to Gathergrid!</div>
-                    <p>Redefining Entertainment, One Event at a Time: Join the Celebration Revolution with GatherGrid,
-                        Your Passport to Unleashing Joy, Creativity, and Endless Memories</p>
-                </div>
-                <div class="card">
-                    <main class="container">
-                        <h2>log in with your account</h2>
-                        <form action="/login" method="post">
-                            <div class="txt_field">
-                                <input type="text" name="email" required />
-                                <label>Email</label>
-                            </div>
-                            <div class="email error"></div> 
-                            <div class="txt_field">
-                                <input type="password" name="password" required />
-                                <label>Password</label>
-                            </div>
-                            <div class="password error"></div> 
-                            <button type="submit">Login</button>
+<!-- Login Stylesheet -->
+<link rel="stylesheet" href="/css/login.css">
+    <div class="content">
+        <div class="wMessage-container">
+            <div class="wMessage">Welcome to Gathergrid!</div>
+            <p>Redefining Entertainment, One Event at a Time: Join the Celebration Revolution with GatherGrid,
+                Your Passport to Unleashing Joy, Creativity, and Endless Memories</p>
+        </div>
+        <div class="card">
+            <main class="container">
+                <h2>log in with your account</h2>
+                <form id="login-form">
+                    <div class="txt_field">
+                        <input type="text" name="email" required />
+                        <label>Email</label>
+                    </div>
+                    <div class="email error"></div> 
+                    <div class="txt_field">
+                        <input type="password" name="password" required />
+                        <label>Password</label>
+                    </div>
+                    <div class="password error"></div> 
+                    <button type="submit">Login</button>
 
-                            <div class="legends">
-                                <div><a href="/signup">Don't have an account?</a></div>
-                                <div><a href="/forgot-password">Forgot password?</a></div>
-                            </div>
-                        </form>
-                    </main>
-                    <img src="/images/girl.jpg" alt="card">
-                </div>
-            </div>
-        <%- include('partials/footer') %>
+                    <div class="legends">
+                        <div><a href="/signup">Don't have an account?</a></div>
+                        <div><a href="/forgot-password">Forgot password?</a></div>
+                    </div>
+                </form>
+            </main>
+            <img src="/images/girl.jpg" alt="card">
+        </div>
+    </div>
+<%- include('partials/footer') %>
+
+<script>
+    const form = document.getElementById('login-form');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = form.email.value;
+        const password = form.password.value;
+
+        try {
+            const res = await fetch('/login', {
+                method: 'post',
+                body: JSON.stringify({ email, password }),
+                credentials: "include",
+                headers: {'Content-Type': 'application/json'}
+            });
+
+            // Check if the response is JSON
+            const contentType = res.headers.get('content-type');
+            if (contentType && contentType.includes('application/json')) {
+                const data = await res.json();
+                console.log(data);
+                // Handle success (e.g., redirecting to another page)
+            } else {
+                // If the response is not JSON, read it as text
+                const text = await res.text();
+                console.error("Error response:", text);
+                // Handle non-JSON error response (e.g., display error message to user)
+            }
+        } catch (ex) {
+            console.error("Following error occurred: ", ex);
+        }
+    });
+</script>
+</html>
