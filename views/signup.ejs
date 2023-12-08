@@ -51,13 +51,17 @@
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
+        const firstname = form.firstName.value;
+        const lastname = form.lastName.value;
+        const type = form.type.value;
         const email = form.email.value;
         const password = form.password.value;
 
         try {
             const res = await fetch('/signup', {
                 method: 'post',
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({ email, type, password, firstname, lastname }),
+                credentials: "include",
                 headers: {'Content-Type': 'application/json'}
             });
 
