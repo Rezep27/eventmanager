@@ -12,7 +12,7 @@ router.get('/signup', (req, res) => {
 
 router.post('/signup', async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { email, type, password, firstname, lastname } = req.body;
 
         // Check if user already exists
         const existingUser = await User.findOne({ email });
@@ -21,7 +21,7 @@ router.post('/signup', async (req, res) => {
         }
 
         // Create user
-        const user = await User.create({ email, password });
+        const user = await User.create({ email, type, password, firstname, lastname });
 
         // Create JWT tokens
         const token = createToken(user._id);
@@ -34,7 +34,7 @@ router.post('/signup', async (req, res) => {
     catch (ex) {
         console.log(ex);
         res.status(400).render('error', { 
-          stausCode: 400,
+          statusCode: 400,
           errorMessage: 'User not created' 
         });
     }

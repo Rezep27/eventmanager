@@ -8,8 +8,9 @@ const eventSchema = new mongoose.Schema({
     address: { type: String, required: [true, 'Enter an address for the event']},
     date: { type: Date, required: [true, 'Enter a description for the event']},
     startTime: { type: String, required: [true, 'Enter a description for the event']},
-    endTime: { type: String, required: [true, 'Enter a description for the event']}
+    endTime: { type: String, required: [true, 'Enter a description for the event']},
+    uid: { type: String, required: [true, 'ID of the owner of the event']},
 });
 
 
-module.exports = mongoose.model('event', eventSchema);
+module.exports = mongoose.model('event', eventSchema);
