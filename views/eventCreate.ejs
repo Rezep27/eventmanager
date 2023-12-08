@@ -93,19 +93,59 @@
 <script>
     const form = document.querySelector('form');
 
-    try {
-    } catch (ex) {
-        console.error("Following error occurred: ", ex);
-    }
-
     const freeAdmissionCheckbox = document.getElementById('freeAdmission');
     const priceInput = document.getElementById('price');
+    const nameInput = document.getElementById('name');
+    const descriptionInput = document.getElementById('description');
+    const categoryInput = document.getElementById('category');
+    const addressInput = document.getElementById('address');
+    const dateInput = document.getElementById('date');
+    const startTimeInput = document.getElementById('startTime');
+    const endTimeInput = document.getElementById('endTime');
 
+    // Check if price checkbox is checked and change price value to 0
     freeAdmissionCheckbox.addEventListener('change', () => {
         priceInput.disabled = freeAdmissionCheckbox.checked;
 
         if (freeAdmissionCheckbox.checked) {
-            priceInput.value = '';
+            priceInput.value = '0';
+        }
+    });
+
+    // Submit event information to the data base
+    form.addEventListener('submit', async (e) => {
+        try {
+            e.preventDefault(); 
+            const data = {
+                name: nameInput.value,
+                price: priceInput.value,
+                description: descriptionInput.value,
+                category: categoryInput.value,
+                address: addressInput.value,
+                date: dateInput.value,
+                startTime: startTimeInput.value,
+                endTime: endTimeInput.value
+            }
+
+            const res = await fetch('/events/create', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const redirectURL = await res.text();
+
+            if (res.ok) {
+                alert('Event created successfully');
+            } else {
+                const errorMessage = await res.text();
+                throw new Error(`Server responded with ${res.status}: ${errorMessage}`);
+            }
+
+            window.location.href = redirectURL; 
+        } catch (e) {
+            console.error("Error: ", e);
         }
     });
 </script>
