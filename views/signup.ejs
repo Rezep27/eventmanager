@@ -27,9 +27,9 @@
                 <input type="password" class="form-control" name="password" required>
                 <label for="password">Password</label>
             </div>
-
-            <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" name="remember" id="remember">Remember me
+            <div>
+                <input id="User-account" name="type" type="radio" required="required">I'm a user
+                <input id="Organizer-account" name="type" type="radio" required="required">I'm a Organizer
             </div>
 
             <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
@@ -45,6 +45,7 @@
             <hr>
         </div>
     </form>
+</section>
 
 <script>
     const form = document.getElementById('signup-form');

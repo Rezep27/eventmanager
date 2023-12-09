@@ -8,6 +8,7 @@
             <div class="wMessage">Welcome to Gathergrid!</div>
             <p>Redefining Entertainment, One Event at a Time: Join the Celebration Revolution with GatherGrid,
                 Your Passport to Unleashing Joy, Creativity, and Endless Memories</p>
+            <img src="/images/girl.jpg" alt="Girl Posing" class="loginImg img-thumbnail">
         </div>
         <div class="card">
             <main class="container">
@@ -27,11 +28,9 @@
 
                     <div class="legends">
                         <div><a href="/signup">Don't have an account?</a></div>
-                        <div><a href="/forgot-password">Forgot password?</a></div>
                     </div>
                 </form>
             </main>
-            <img src="/images/girl.jpg" alt="card">
         </div>
     </div>
 <%- include('partials/footer') %>
@@ -46,24 +45,14 @@
 
         try {
             const res = await fetch('/login', {
-                method: 'post',
+                method: 'POST',
                 body: JSON.stringify({ email, password }),
                 credentials: "include",
                 headers: {'Content-Type': 'application/json'}
             });
 
-            // Check if the response is JSON
-            const contentType = res.headers.get('content-type');
-            if (contentType && contentType.includes('application/json')) {
-                const data = await res.json();
-                console.log(data);
-                // Handle success (e.g., redirecting to another page)
-            } else {
-                // If the response is not JSON, read it as text
-                const text = await res.text();
-                console.error("Error response:", text);
-                // Handle non-JSON error response (e.g., display error message to user)
-            }
+            window.location.href = "/"; 
+
         } catch (ex) {
             console.error("Following error occurred: ", ex);
         }
