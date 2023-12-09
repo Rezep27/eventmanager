@@ -28,8 +28,8 @@
                 <label for="password">Password</label>
             </div>
             <div>
-                <input id="User-account" name="type" type="radio" required="required">I'm a user
-                <input id="Organizer-account" name="type" type="radio" required="required">I'm a Organizer
+                <input id="User-account" name="type" type="radio" value="User" required>I'm a user
+                <input id="Organizer-account" name="type" type="radio" value="Organizer" required>I'm a Organizer
             </div>
 
             <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
@@ -60,24 +60,20 @@
 
         try {
             const res = await fetch('/signup', {
-                method: 'post',
+                method: 'POST',
                 body: JSON.stringify({ email, type, password, firstname, lastname }),
                 credentials: "include",
                 headers: {'Content-Type': 'application/json'}
             });
 
-            // Check if the response is JSON
-            const contentType = res.headers.get('content-type');
-            if (contentType && contentType.includes('application/json')) {
-                const data = await res.json();
-                console.log(data);
-                // Handle success (e.g., redirecting to another page)
+            if (res.ok) {
+                alert('Thanks you for signing up!');
             } else {
-                // If the response is not JSON, read it as text
-                const text = await res.text();
-                console.error("Error response:", text);
-                // Handle non-JSON error response (e.g., display error message to user)
+                const errorMessage = await res.text();
+                throw new Error(`Server responded with ${res.status}: ${errorMessage}`);
             }
+
+            window.location.href = "/"; 
         } catch (ex) {
             console.error("Following error occurred: ", ex);
         }

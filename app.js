@@ -42,6 +42,13 @@ app.get('/', async (req, res) => {
 app.use(authRouter)
 app.use(eventRouter)
 
+app.get('/error', function(req, res){
+    res.status(404).render('error', {
+        statusCode: 404,
+        errorMessage: 'Page Not Found'
+    });
+});
+
 // Error Page Not Found
 app.get('*', function(req, res){
     res.status(404).render('error', {
