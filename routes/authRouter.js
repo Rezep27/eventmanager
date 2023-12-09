@@ -26,9 +26,7 @@ router.post('/signup', async (req, res) => {
         // Create JWT tokens
         const token = createToken(user._id);
 
-        res.cookie('jwt', token, { httpOnly: true, maxAge: 3 * 24 * 60 * 60 * 1000 });
-        // Create and send token
-        res.status(201).json({ token: token, user: user._id });
+        res.cookie('jwt', token, { httpOnly: true, maxAge: 3 * 24 * 60 * 60 * 1000 }).redirect("back");
 
     }
     catch (ex) {
@@ -69,8 +67,7 @@ router.post('/login', async (req, res) => {
 
         // Create and send token
         const token = createToken(user._id);
-        res.cookie('jwt', token, { httpOnly: true, maxAge: 3 * 24 * 60 * 60 * 1000 });
-        res.status(200).redirect("back");
+        res.cookie('jwt', token, { httpOnly: true, maxAge: 3 * 24 * 60 * 60 * 1000 }).redirect("back");
     } catch (ex) {
         console.log(ex);
         res.status(400).render('error', { 

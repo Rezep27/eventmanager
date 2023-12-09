@@ -56,7 +56,10 @@ router.get('/events/edit/:id', verifyOrganizer, async (req, res) => {
         if (data.uid == ID) {
             res.render('eventEdit', {data});
         } else {
-            res.status(401).send('Unauthorized');
+            res.status(401).render('error', { 
+                statusCode: 500,
+                errorMessage: 'Unauthorized' 
+            });
         }
     } catch (e) {
         res.status(500).render('error', { 
@@ -81,7 +84,10 @@ router.put('/events/edit/:id', verifyOrganizer, async (req, res) => {
             console.log("Updated Event: ", updatedEvent)
             res.status(200).send('/events/view');
         } else {
-            res.status(401).send('Unauthorized');
+            res.status(401).render('error', { 
+                statusCode: 500,
+                errorMessage: 'Unauthorized' 
+            });
         }
     } catch (e) {
         res.status(500).render('error', { 
@@ -104,7 +110,10 @@ router.get('/events/delete/:id', verifyOrganizer, async (req, res) => {
         if (data.uid == ID) {
             res.render('eventDelete', {data});
         } else {
-            res.status(401).send('Unauthorized');
+            res.status(401).render('error', { 
+                statusCode: 500,
+                errorMessage: 'Unauthorized' 
+            });
         }
     } catch (e) {
         res.status(500).render('error', { 
@@ -128,7 +137,10 @@ router.delete('/events/delete/:id', verifyOrganizer, async (req, res) => {
             console.log("Event Deleted");   
             res.status(200).send('/events/view');
         } else {
-            res.status(401).send('Unauthorized');
+            res.status(401).render('error', { 
+                statusCode: 500,
+                errorMessage: 'Unauthorized' 
+            });
         }
     } catch (e) {
         res.status(500).render('error', { 
