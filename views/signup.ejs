@@ -1,16 +1,9 @@
-<<<<<<< Updated upstream
 <%- include('partials/header') %>
 
   <!-- Signup Stylesheet -->
   <link rel="stylesheet" href="/css/signup-style.css">
 
     <form id="signup-form" class="body-form">
-=======
-<link rel="stylesheet" href="/css/signup-style.css">
-
-<section class="signup-page">
-    <form action="/signup" method="post" id="signup-form" class="body-form">
->>>>>>> Stashed changes
         <div class="container">
             <h1 style="margin-bottom: 10%; margin-top: 10%;">Create an account</h1>
 
@@ -68,14 +61,9 @@
         try {
             const res = await fetch('/signup', {
                 method: 'post',
-<<<<<<< Updated upstream
                 body: JSON.stringify({ email, type, password, firstname, lastname }),
                 credentials: "include",
                 headers: {'Content-Type': 'application/json'}
-=======
-                body: JSON.stringify({ email, password }),
-                headers: { 'Content-Type': 'application/json' }
->>>>>>> Stashed changes
             });
 
             // Check if the response is JSON
@@ -95,9 +83,4 @@
         }
     });
 </script>
-<<<<<<< Updated upstream
-=======
-
-
->>>>>>> Stashed changes
 </html>

@@ -1,6 +1,4 @@
-<link rel="stylesheet" href="/css/login.css">
 <%- include('partials/header') %>
-<<<<<<< Updated upstream
 <%- include('partials/nav_bar') %>
 
 <!-- Login Stylesheet -->
@@ -10,6 +8,7 @@
             <div class="wMessage">Welcome to Gathergrid!</div>
             <p>Redefining Entertainment, One Event at a Time: Join the Celebration Revolution with GatherGrid,
                 Your Passport to Unleashing Joy, Creativity, and Endless Memories</p>
+            <img src="/images/girl.jpg" alt="Girl Posing" class="loginImg img-thumbnail">
         </div>
         <div class="card">
             <main class="container">
@@ -29,11 +28,9 @@
 
                     <div class="legends">
                         <div><a href="/signup">Don't have an account?</a></div>
-                        <div><a href="/forgot-password">Forgot password?</a></div>
                     </div>
                 </form>
             </main>
-            <img src="/images/girl.jpg" alt="card">
         </div>
     </div>
 <%- include('partials/footer') %>
@@ -72,38 +69,3 @@
     });
 </script>
 </html>
-=======
-
-<%- include('partials/nav_bar') %>
-<div class="content">
-    <div class="wMessage-container">
-        <div class="wMessage">Welcome to Gathergrid!</div>
-        <p>Redefining Entertainment, One Event at a Time: Join the Celebration Revolution with GatherGrid,
-            Your Passport to Unleashing Joy, Creativity, and Endless Memories</p>
-    </div>
-    <div class="card">
-        <main class="container">
-            <h2>log in with your account</h2>
-            <form action="/login" method="post">
-                <div class="txt_field">
-                    <input type="text" name="email" required />
-                    <label>Email</label>
-                </div>
-                <div class="email error"></div>
-                <div class="txt_field">
-                    <input type="password" name="password" required />
-                    <label>Password</label>
-                </div>
-                <div class="password error"></div>
-                <button type="submit">Login</button>
-
-                <div class="legends">
-                    <div><a href="/signup">Don't have an account?</a></div>
-                    <div><a href="/forgot-password">Forgot password?</a></div>
-                </div>
-            </form>
-        </main>
-        <img src="/images/girl.jpg" alt="card">
-    </div>
-</div>
->>>>>>> Stashed changes

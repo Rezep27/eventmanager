@@ -28,7 +28,7 @@
         color: red;
     }
 
-    .card img {
+    .loginImg {
         max-width: 50%;
         height: auto;
         width: 100%;
@@ -66,7 +66,7 @@
         border-radius: 10%;
         width: 45%;
         margin-left: auto;
-
+        position: relative;
 
     }
 
