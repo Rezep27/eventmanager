@@ -60,28 +60,16 @@
 
         try {
             const res = await fetch('/login', {
-                method: 'post',
+                method: 'POST',
                 body: JSON.stringify({ email, password }),
                 credentials: "include",
                 headers: { 'Content-Type': 'application/json' }
             });
 
-            // Check if the response is JSON
-            const contentType = res.headers.get('content-type');
-            if (contentType && contentType.includes('application/json')) {
-                const data = await res.json();
-                console.log(data);
-                // Handle success (e.g., redirecting to another page)
-            } else {
-                // If the response is not JSON, read it as text
-                const text = await res.text();
-                console.error("Error response:", text);
-                // Handle non-JSON error response (e.g., display error message to user)
-            }
+            window.location.href = "/"; 
+
         } catch (ex) {
             console.error("Following error occurred: ", ex);
         }
     });
 </script>
-
-</html>

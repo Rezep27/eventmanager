@@ -3,15 +3,13 @@
 <%- include('partials/nav_bar') %>
 
 <main class="container my-5">
-    <div class=" row justify-content-md-center my-4">
-        <img src="images/error.png" alt="Error" class="image-fluid" style="max-width: 100%; height: auto; width: 300px">
+    <div class=" justify-content-md-center my-2">
+        <h1>Email: <%= userEmail %></h1>
+        <h1>Type: <%= userType %></h1>
+        <h1>First Name: <%= userFirstName %></h1>
+        <h1>Last Name: <%= userLastName %></h1>
     </div>
-    <div class=" row justify-content-md-center my-2">
-        <h1>Error: <%= statusCode %></h1>
-    </div>
-    <div class=" row justify-content-md-center my-2">
-        <h1><%= errorMessage %></h1>
-    </div>
+    
 </main>
 
 <%- include('partials/footer') %>
