@@ -1,119 +1,119 @@
+.login-page .card {
+    font-family: 'Times New Roman', serif;
+    display: flex;
+    width: 45%;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
 
-    .card {
-        font-family: 'Times New Roman', serif;
-        display: flex;
-        width: 45%;
-        margin-left: auto;
-        margin-right: auto;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    }
+.login-page .container {
+    flex: 1;
+    padding: 4%;
+}
 
-    .container {
-        flex: 1;
-        padding: 4%;
-    }
+.login-page .container h2 {
+    margin-bottom: 0.5em;
+}
 
-    .container h1 {
-        margin-bottom: 0.5em;
-    }
+.login-page .container form {
+    display: flex;
+    flex-direction: column;
+}
 
-    .container form {
-        display: flex;
-        flex-direction: column;
-    }
+.login-page .container .email.error,
+.login-page .container .password.error {
+    margin-top: 0.5em;
+    color: red;
+}
 
-    .container .email.error,
-    .container .password.error {
-        margin-top: 0.5em;
-        color: red;
-    }
+.login-page .card img {
+    max-width: 50%;
+    height: auto;
+    width: 100%;
+}
 
-    .card img {
-        max-width: 50%;
-        height: auto;
-        width: 100%;
-    }
+.login-page .container .txt_field {
+    position: relative;
+    margin-bottom: 1em;
+}
 
-    .container .txt_field {
-        position: relative;
-        margin-bottom: 1em;
-    }
+.login-page input[type=text],
+.login-page input[type=password],
+.login-page input[type=email] {
+    width: 100%;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: white;
+    border-bottom: 2px solid #f1f1f1;
+    border-radius: 0;
+    position: relative;
+    transition: all 0.3s ease;
+}
 
-    .container .txt_field input {
-        width: 100%;
-        margin: 5px 0 22px 0;
-        display: inline-block;
-        border: none;
-        background: white;
-        border-bottom: 2px solid #f1f1f1;
-        border-radius: 0;
-        position: relative;
-        transition: all 0.3s ease-out;
-        outline: none;
-    }
-    
-    .wMessage {
-        text-align:left; 
-        margin-top: 5%; 
-        margin-bottom: 5%;
-        font-size: 2.3512rem;
+.login-page input[type=text]:focus,
+.login-page input[type=password]:focus,
+.login-page input[type=email]:focus {
+    outline: none;
+}
+
+.login-page .txt_field label {
+    position: absolute;
+    left: 10px;
+    top: 2px;
+    font-size: 16px;
+    color: #555;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.login-page input:focus ~ label,
+.login-page input:valid ~ label,
+.login-page input:-webkit-autofill ~ label {
+    transform: translateY(-15px);
+    font-size: 12px;
+}
+
+/* Style for the submit button */
+.login-page .container button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.login-page .legends {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    color: #555;
+}
+
+.login-page .content {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 60px;
+}
+
+.login-page p {
+    font-size: 1.5rem;
+}
+
+.login-page .wMessage {
+    text-align: left;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    font-size: 2.3512rem;
     font-weight: 600;
-        
-    }
+}
 
-    .wMessage-container{
-        border-color: black; 
-        border-radius: 10%;
-        width: 45%;
-        margin-left: auto;
-
-
-    }
-
-    .container .txt_field label {
-        position: absolute;
-        left: 5px;
-        top: 13%;
-        transform: translateY(-15%);
-        pointer-events: none;
-        transition: all 0.3s ease;
-        color: #555;
-        font-weight: normal;
-    }
-
-    .container .txt_field input:focus ~ label,
-    .container .txt_field input:valid ~ label
-    input:-webkit-autofill ~ label{
-        transform: translateY(-15px);
-        font-size: 12px;
-    }
-
-    .container .txt_field input:focus {
-        outline: none;
-    }
-
-    /* Style for the submit button */
-    .container button {
-        background-color: #4caf50; /* Green background color */
-        color: white; /* White text color */
-        padding: 10px 15px; /* Padding inside the button */
-        border: none; /* No border */
-        border-radius: 5px; /* Rounded corners */
-        cursor: pointer; /* Cursor on hover */
-        font-size: 16px; /* Font size */
-    }
-
-    .legends {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 10px;
-        color: #555;
-    }
-    .content {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 60px;
-    }
-    p{
-        font-size: 1.5rem;
-    }
+.login-page .wMessage-container {
+    border-color: black;
+    border-radius: 10%;
+    width: 45%;
+    margin-left: auto;
+}
