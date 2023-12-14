@@ -6,6 +6,7 @@ const { verifyOrganizer } = require('../utils/verifyOrganizer');
 require('dotenv').config();
 
 
+
 router.get('/events/create', verifyOrganizer, (req, res) => { 
     res.render('eventCreate');
 });

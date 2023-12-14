@@ -1,39 +1,52 @@
-<%- include('partials/header') %>
-<%- include('partials/nav_bar') %>
-
-<!-- Login Stylesheet -->
 <link rel="stylesheet" href="/css/login.css">
-    <div class="content">
-        <div class="wMessage-container">
-            <div class="wMessage">Welcome to Gathergrid!</div>
-            <p>Redefining Entertainment, One Event at a Time: Join the Celebration Revolution with GatherGrid,
-                Your Passport to Unleashing Joy, Creativity, and Endless Memories</p>
-            <img src="/images/girl.jpg" alt="Girl Posing" class="loginImg img-thumbnail">
-        </div>
-        <div class="card">
-            <main class="container">
-                <h2>log in with your account</h2>
-                <form id="login-form">
-                    <div class="txt_field">
-                        <input type="text" name="email" required />
-                        <label>Email</label>
-                    </div>
-                    <div class="email error"></div> 
-                    <div class="txt_field">
-                        <input type="password" name="password" required />
-                        <label>Password</label>
-                    </div>
-                    <div class="password error"></div> 
-                    <button type="submit">Login</button>
+<!DOCTYPE html>
+<html lang="en">
 
-                    <div class="legends">
-                        <div><a href="/signup">Don't have an account?</a></div>
-                    </div>
-                </form>
-            </main>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+
+
+<%- include('partials/header') %>
+    <%- include('partials/nav_bar') %>
+
+        <div class="login-page">
+            <div class="content">
+                <div class="wMessage-container">
+                    <div class="wMessage">Welcome to Gathergrid!</div>
+                    <p>Redefining Entertainment, One Event at a Time: Join the Celebration Revolution with GatherGrid,
+                        Your Passport to Unleashing Joy, Creativity, and Endless Memories</p>
+                </div>
+                <div class="card">
+                    <main class="container">
+                        <h2>log in with your account</h2>
+                        <form id="login-form">
+                            <div class="txt_field">
+                                <input type="text" name="email" required />
+                                <label>Email</label>
+                            </div>
+                            <div class="email error"></div>
+                            <div class="txt_field">
+                                <input type="password" name="password" required />
+                                <label>Password</label>
+                            </div>
+                            <div class="password error"></div>
+                            <button type="submit">Login</button>
+
+                            <div class="legends">
+                                <div><a href="/signup">Don't have an account?</a></div>
+                                <div><a href="/forgot-password">Forgot password?</a></div>
+                            </div>
+                        </form>
+                    </main>
+                    <img src="/images/girl.jpg" alt="card">
+                </div>
+            </div>
         </div>
-    </div>
-<%- include('partials/footer') %>
+        <%- include('partials/footer') %>
 
 <script>
     const form = document.getElementById('login-form');
@@ -48,7 +61,7 @@
                 method: 'POST',
                 body: JSON.stringify({ email, password }),
                 credentials: "include",
-                headers: {'Content-Type': 'application/json'}
+                headers: { 'Content-Type': 'application/json' }
             });
 
             window.location.href = "/"; 
@@ -58,4 +71,3 @@
         }
     });
 </script>
-</html>
