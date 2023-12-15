@@ -42,10 +42,14 @@ app.get('/', async (req, res) => {
 app.use(authRouter)
 app.use(eventRouter)
 
-app.get('/error', function(req, res){
-    res.status(404).render('error', {
-        statusCode: 404,
-        errorMessage: 'Page Not Found'
+// Error handler view
+app.get('/error/:errStatus/:errType', function(req, res){
+    const errType = req.params.errType;
+    const errStatus = req.params.errStatus;
+
+    res.status(errStatus).render('error', {
+        statusCode: errStatus,
+        errorMessage: errType
     });
 });
 
@@ -53,6 +57,6 @@ app.get('/error', function(req, res){
 app.get('*', function(req, res){
     res.status(404).render('error', {
         statusCode: 404,
-        errorMessage: 'Page Not Found'
+        errorMessage: 'Page_Not_Found'
     });
 });

@@ -17,24 +17,20 @@ router.post('/signup', async (req, res) => {
         // Check if user already exists
         const existingUser = await User.findOne({ email });
         if (existingUser) {
-            return res.status(400).send('Email already exists');
+            res.send('/error/406/Email_Already_Exists/');
+        } else {        
+          // Create user
+          const user = await User.create({ email, type, password, firstname, lastname });
+  
+          // Create JWT tokens
+          const token = createToken(user._id);
+  
+          res.cookie('jwt', token, { httpOnly: true, maxAge: 3 * 24 * 60 * 60 * 1000 }).send('ok');
         }
-
-        // Create user
-        const user = await User.create({ email, type, password, firstname, lastname });
-
-        // Create JWT tokens
-        const token = createToken(user._id);
-
-        res.cookie('jwt', token, { httpOnly: true, maxAge: 3 * 24 * 60 * 60 * 1000 }).redirect("back");
-
     }
     catch (ex) {
         console.log(ex);
-        res.status(400).render('error', { 
-          statusCode: 400,
-          errorMessage: 'User not created' 
-        });
+        res.send('/error/400/User_Not_Created')
     }
 });
 
@@ -49,31 +45,25 @@ router.post('/login', async (req, res) => {
 
         // Find the user by email
         const user = await User.findOne({ email });
+
         if (!user) {
-            res.status(400).render('error', { 
-              statusCode: 400,
-              errorMessage: 'User not found'
-            });
+          res.send('/error/404/User_Not_Found')
+        } else {
+          // Compare password
+          const isMatch = await bcrypt.compare(password, user.password);
+                  
+          if (!isMatch) {
+            res.send('/error/400/Password_Is_Incorrect')
+          }
+          else {
+            // Create and send token
+            const token = createToken(user._id);
+            res.cookie('jwt', token, { httpOnly: true, maxAge: 3 * 24 * 60 * 60 * 1000 }).send('ok');
+          }
         }
-
-        // Compare password
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            res.status(400).render('error', { 
-              statusCode: 400,
-              errorMessage: 'Password is incorrect'
-            });
-        }
-
-        // Create and send token
-        const token = createToken(user._id);
-        res.cookie('jwt', token, { httpOnly: true, maxAge: 3 * 24 * 60 * 60 * 1000 }).redirect("back");
     } catch (ex) {
-        console.log(ex);
-        res.status(400).render('error', { 
-          statusCode: 400,
-          errorMessage: 'Login error'
-        });
+      console.log(ex);
+      res.send('/error/400/Login_Error')
     }
 });
 

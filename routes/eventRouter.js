@@ -1,9 +1,11 @@
 const { Router } = require('express');
 const router = Router();
 const Event = require('../models/event');
+const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const { verifyOrganizer } = require('../utils/verifyOrganizer');
 require('dotenv').config();
+
 
 
 router.get('/events/create', verifyOrganizer, (req, res) => { 
@@ -19,6 +21,7 @@ router.post('/events/create', verifyOrganizer, async (req, res) => {
         const id = decodedToken.id;
         const event = await Event.create({name, price, description, category, address, date, startTime, endTime, uid: id});
         console.log("Event created successfully. Event ID: " + event._id);
+        console.log(event.address);
         res.status(201).send('/');
     }
     catch(ex) {
@@ -30,37 +33,34 @@ router.post('/events/create', verifyOrganizer, async (req, res) => {
     }
 });
 
-router.get('/events/view', async (req, res) => { 
-    // Get data from database
-    try {
-        const data = await Event.find({})
-
-        res.render('eventView', {data});
-    } catch (e) {
-        res.status(500).render('error', { 
-            statusCode: 500,
-            errorMessage: 'Error fetching data' 
-        });
-        console.log(e);
-    } 
-});
-
-router.get('/events/edit/:id', verifyOrganizer, async (req, res) => {
+router.get('/events/view/:id', async (req, res) => { 
     const id = req.params.id;
     const token = req.cookies.jwt;
 
     try {
-        const data = await Event.findOne({ _id: id })
-        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-        const ID = decodedToken.id;
-        if (data.uid == ID) {
-            res.render('eventEdit', {data});
+        // Get all events data
+        const data = await Event.find({})
+
+        // Check event data based on id
+        const eventData = await Event.findOne({ _id: id })
+
+        // Find the organizer name based on the event uid
+        const organizer = await User.findById(eventData.uid);
+
+        // Check if user is authenticated to display event options
+        if (!token) {
+            const userData = "";
+            res.render('eventView', { data, eventData, userData, organizer});
         } else {
-            res.status(401).render('error', { 
-                statusCode: 500,
-                errorMessage: 'Unauthorized' 
-            });
+            // Check user data
+            const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+            const idToken = decodedToken.id;
+            const userData = await User.findById(idToken);
+
+            res.render('eventView', { data, eventData, userData, organizer});
         }
+        
+
     } catch (e) {
         res.status(500).render('error', { 
             statusCode: 500,
@@ -70,9 +70,9 @@ router.get('/events/edit/:id', verifyOrganizer, async (req, res) => {
     } 
 });
 
-router.put('/events/edit/:id', verifyOrganizer, async (req, res) => {
+router.put('/events/view/:id', verifyOrganizer, async (req, res) => {
     const id = req.params.id;
-    const updates = { name: req.body.name, price: req.body.price, description: req.body.description};
+    const updates = { name: req.body.name, price: req.body.price, description: req.body.description, category: req.body.category, address: req.body.address, date: req.body.date, startTime: req.body.startTime, endTime: req.body.endTime};
     const token = req.cookies.jwt;
 
     try {
@@ -82,7 +82,7 @@ router.put('/events/edit/:id', verifyOrganizer, async (req, res) => {
         if (data.uid == ID) {
             const updatedEvent = await Event.findByIdAndUpdate(id, updates, {new: true});
             console.log("Updated Event: ", updatedEvent)
-            res.status(200).send('/events/view');
+            res.status(200).send('/events/view/' + id);
         } else {
             res.status(401).render('error', { 
                 statusCode: 500,
@@ -98,33 +98,7 @@ router.put('/events/edit/:id', verifyOrganizer, async (req, res) => {
     }
 });
 
-
-router.get('/events/delete/:id', verifyOrganizer, async (req, res) => {
-    const id = req.params.id;
-    const token = req.cookies.jwt;
-    try {
-        const data = await Event.findOne({ _id: id })
-        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-        const ID = decodedToken.id;
-        
-        if (data.uid == ID) {
-            res.render('eventDelete', {data});
-        } else {
-            res.status(401).render('error', { 
-                statusCode: 500,
-                errorMessage: 'Unauthorized' 
-            });
-        }
-    } catch (e) {
-        res.status(500).render('error', { 
-            statusCode: 500,
-            errorMessage: 'Error fetching data' 
-        });
-        console.log(e);
-    } 
-});
-
-router.delete('/events/delete/:id', verifyOrganizer, async (req, res) => {
+router.delete('/events/view/:id', verifyOrganizer, async (req, res) => {
     const id = req.params.id;
     const token = req.cookies.jwt;
     
@@ -135,7 +109,7 @@ router.delete('/events/delete/:id', verifyOrganizer, async (req, res) => {
         if (data.uid == ID) {
             const deletedEvent = await Event.findByIdAndDelete(id, {delete: true});
             console.log("Event Deleted");   
-            res.status(200).send('/events/view');
+            res.status(200).send('/');
         } else {
             res.status(401).render('error', { 
                 statusCode: 500,
@@ -150,13 +124,5 @@ router.delete('/events/delete/:id', verifyOrganizer, async (req, res) => {
         console.log(e);
     } 
 });
-
-router.get('/event1', async (req, res) =>{
-    res.render('event1');
-})
-
-router.get('/event2', async (req, res) =>{
-    res.render('event2');
-})
 
 module.exports = router;

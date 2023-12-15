@@ -1,15 +1,80 @@
 <%- include('partials/header') %>
+    <%- include('partials/nav_bar') %>
 
-<%- include('partials/nav_bar') %>
+        <style>
+            .card {
+                margin-top: 5%;
+                margin-bottom: 5%;
+                margin-left: 10%;
+                margin-right: 10%;
+                border-style: none;
 
-<main class="container my-5">
-    <div class=" justify-content-md-center my-2">
-        <h1>Email: <%= userEmail %></h1>
-        <h1>Type: <%= userType %></h1>
-        <h1>First Name: <%= userFirstName %></h1>
-        <h1>Last Name: <%= userLastName %></h1>
-    </div>
-    
-</main>
+            }
 
-<%- include('partials/footer') %>
+            .card-header {
+                border-style: none;
+                background-color: white;
+
+            }
+
+            .card-body {
+                border-style: none;
+            }
+
+            hr {
+                border: none;
+                border-top: 3px double #f54c40;
+                color: #202020;
+                overflow: visible;
+                text-align: center;
+                height: 5px;
+            }
+
+            hr:after {
+                font-family: sans-serif;
+                background: #ffffff;
+                content: 'g';
+                padding: 0 4px;
+                position: relative;
+                top: -18px;
+                color: #f54c40;
+            }
+
+            h2 {
+                font-size: 2em;
+                color: black;
+            }
+        </style>
+        <div class="Profile">
+            <main class="container my-5">
+                <div class="justify-content-md-center"
+                    style="margin-bottom: 15%; border-style:none; margin-left: 15%; margin-right: 15%;">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h2 class="card-title">My Profile</h1>
+                                <hr>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text" style=" font-size: 1.2em; color: black;">
+                                👤 <%= userFirstName %>
+                                <%= userLastName %>
+                            </p>
+                            <p class="card-text text-dark">
+                                📧 <%= userEmail %>
+                            </p>
+                            <p class="card-text text-dark">
+                                <%= userType %>
+                            </p>
+                            <div class="btn-group d-flex justify-content-between" style="margin-top: 10%;">
+                                <button class="btn btn-outline-primary flex-grow-1 mr-2" onclick="editProfile()">✏️ Edit
+                                    Profile</button>
+                                <button class="btn btn-outline-danger flex-grow-1" onclick="deleteProfile()">🗑️ Delete
+                                    Profile</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <%- include('partials/footer') %>
