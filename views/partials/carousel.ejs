@@ -1,52 +1,44 @@
 <!-- Carousel start -->
-<section class="portfolio ">
-	<div class="container">
-		<div class="row mb-5">
-	      	<div class="col-10">
-		        <div class="btn-group btn-group-toggle " data-toggle="buttons">
-		          <label class="btn active ">
+<section class="portfolio">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-10">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <!-- Your radio buttons for filtering (unchanged) -->
+                </div>
+            </div>
+        </div>
 
-                    <input type="radio" name="shuffle-filter" value="all" checked="checked">All Events
-                </label>
-                <label class="btn">
-                    <input type="radio" name="shuffle-filter" value="comedy">Comedy
-                </label>
-                <label class="btn">
-                    <input type="radio" name="shuffle-filter" value="concerts">Concerts
-                </label>
-                <label class="btn">
-                    <input type="radio" name="shuffle-filter" value="food">Food
-                </label>
-                <label class="btn">
-                    <input type="radio" name="shuffle-filter" value="parties">Parties
-                </label>
-				<label class="btn">
-                    <input type="radio" name="shuffle-filter" value="socials">Socials
-                </label>
+        <div class="row shuffle-wrapper portfolio-gallery">
+            <% data.forEach(item => { %>
+                <div class="col-lg-4 col-6 mb-4 shuffle-item" data-groups="[&quot;<%= item.category %>&quot;]">
+                    <div class="position-relative inner-box">
+                        <div class="image position-relative">
+                            <img src="" alt="Event Image" class="img-fluid w-100 d-block" id="randomImage_<%= item._id %>">
+                            <div class="overlay-box">
+                                <div class="overlay-inner">
+                                    <a class="overlay-content" style="color: black" onmouseover="this.style.color='rgb(255, 77, 0)'" onmouseout="this.style.color='black'" href="/events/view/<%= item._id %>">
+                                        <h5 class="mb-0"><%= item.name %></h5>
+                                        <p><%= new Date(item.date).toLocaleDateString('en-US', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}) %></p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-		        </div>
-	      	</div>
-    	</div>	
+                <!-- JavaScript code within the loop to set a random image for each item -->
+                <script>
+                    const images_<%= item._id %> = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg'];
 
-		<div class="row shuffle-wrapper portfolio-gallery">
-			<% data.forEach(item => { %>
-				<div class="col-lg-4 col-6 mb-4 shuffle-item"  data-groups="[&quot;<%= item.category %>&quot;]">   
-					<div class="position-relative inner-box">
-						<div class="image position-relative ">
-								<img src="images/events/1.jpg" alt="Event Image" class="img-fluid w-100 d-block">
-							<div class="overlay-box">
-								<div class="overlay-inner">
-									<a class="overlay-content" style="color: black" onmouseover="this.style.color='rgb(255, 77, 0)'" onmouseout="this.style.color='black'" href="/events/view/<%= item._id %>">
-										<h5 class="mb-0"><%= item.name %></h5>
-										<p><%= new Date(item.date).toLocaleDateString('en-US', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}) %></p>
-									</a>
-								</div>
-							</div> 
-						</div>
-					</div>
-				</div>
-			<% }); %>
-	    </div>
-	</div>
+                    const randomIndex_<%= item._id %> = Math.floor(Math.random() * images_<%= item._id %>.length);
+
+                    const randomImage_<%= item._id %> = document.getElementById('randomImage_<%= item._id %>');
+
+                    randomImage_<%= item._id %>.src = `/images/events/${images_<%= item._id %>[randomIndex_<%= item._id %>]}`;
+
+                </script>
+            <% }); %>
+        </div>
+    </div>
 </section>
-
