@@ -6,7 +6,7 @@
   <%- include('partials/nav_bar') %>
   
             <main class="main-eventCreate">
-                <div class="form-container">
+                <div class="form-container ">
                     <h2 style="font-weight: bold;">Add an Event</h2>
                     <p>Complete the form to craft your event in the vibrant heart of Toronto. Ready to join the
                         experience?</p>
@@ -68,23 +68,7 @@
                             </div>
                         </div>
                         <button type="submit" style="margin-top: 3%;">Create Event</button>
-
                 </div>
-
-                <div class="image-section">
-                    <div class="not-found">
-                        <h4 style="font-weight: bold;">Event Image</h4>
-                        <p>Show the image that best suits your event</p>
-                        <img src="/images/notfound.png" alt="Not Found" id="selected-image">
-                    </div>
-                    <div class="upload-section">
-                        <label for="image-upload">Upload Image</label>
-                        <input type="file" id="image-upload" name="image-upload" accept="image/*" />
-                    </div>
-                </div>
-                </form>
-                <h1 id="eventCreationConfirmation"></h1>
-
             </main>
         <%- include('partials/footer') %>
 

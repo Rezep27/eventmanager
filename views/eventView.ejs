@@ -97,11 +97,6 @@
                                     <div class="modal-body">
                                         <form id="editForm">
                                             <div class="form-group">
-                                                <img src="<%= eventData.image %>" alt="Not Found" class="img-thumbnail">
-                                                <label for="eventEditImage">Image:</label>
-                                                <input type="file" class="form-control" id="eventEditImage" name="eventEditImage" value="<%= eventData.img %>" required>
-                                            </div>
-                                            <div class="form-group">
                                                 <label for="eventEditName">Name:</label>
                                                 <input type="text" class="form-control" id="eventEditName" name="eventEditName" value="<%= eventData.name %>" required>
                                             </div>
@@ -215,7 +210,6 @@
     // Function to make a PUT request to edit data of an event
     function editEventRequest() {
         try {
-            const inputImage = document.getElementById("eventEditImage").value;
             const inputName = document.getElementById("eventEditName").value;
             const inputPrice = document.getElementById("eventEditPrice").value;
             const inputDescription = document.getElementById("eventEditDescription").value;
