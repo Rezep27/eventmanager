@@ -147,4 +147,15 @@
             console.error("Error: ", e);
         }
     });
+
+    const imageUpload = document.getElementById('image-upload');
+    imageUpload.addEventListener('change', () => {
+        const file = imageUpload.files[0];
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            const result = reader.result;
+            document.getElementById('selected-image').src = result;
+        }
+        reader.readAsDataURL(file);
+    });
 </script>
