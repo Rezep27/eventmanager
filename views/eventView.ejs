@@ -243,8 +243,6 @@
                 endTime: inputEndTime
             };
     
-            console.log("This is the data:", data);
-    
             return fetch('/events/view/' + eventId, {
                 method: 'PUT',
                 body: JSON.stringify(data),
@@ -259,7 +257,7 @@
     }
 
     // Function to make a DELETE request to delete an event
-    deleteEventButton.addEventListener('click', async (e) => {
+    document.getElementById('deleteEventButton').addEventListener('click', async (e) => {
         try {
             const res = await fetch("/events/view/" + eventId, {
                 method: 'DELETE'

@@ -1,80 +1,223 @@
 <%- include('partials/header') %>
-    <%- include('partials/nav_bar') %>
+<%- include('partials/nav_bar') %>
 
-        <style>
-            .card {
-                margin-top: 5%;
-                margin-bottom: 5%;
-                margin-left: 10%;
-                margin-right: 10%;
-                border-style: none;
+<style>
+    .card {
+        margin-top: 5%;
+        margin-bottom: 5%;
+        margin-left: 10%;
+        margin-right: 10%;
+        border-style: none;
 
-            }
+    }
 
-            .card-header {
-                border-style: none;
-                background-color: white;
+    .card-header {
+        border-style: none;
+        background-color: white;
 
-            }
+    }
 
-            .card-body {
-                border-style: none;
-            }
+    .card-body {
+        border-style: none;
+    }
 
-            hr {
-                border: none;
-                border-top: 3px double #f54c40;
-                color: #202020;
-                overflow: visible;
-                text-align: center;
-                height: 5px;
-            }
+    hr {
+        border: none;
+        border-top: 3px double #f54c40;
+        color: #202020;
+        overflow: visible;
+        text-align: center;
+        height: 5px;
+    }
 
-            hr:after {
-                font-family: sans-serif;
-                background: #ffffff;
-                content: 'g';
-                padding: 0 4px;
-                position: relative;
-                top: -18px;
-                color: #f54c40;
-            }
+    hr:after {
+        font-family: sans-serif;
+        background: #ffffff;
+        content: 'g';
+        padding: 0 4px;
+        position: relative;
+        top: -18px;
+        color: #f54c40;
+    }
 
-            h2 {
-                font-size: 2em;
-                color: black;
-            }
-        </style>
-        <div class="Profile">
-            <main class="container my-5">
-                <div class="justify-content-md-center"
-                    style="margin-bottom: 15%; border-style:none; margin-left: 15%; margin-right: 15%;">
-                    <div class="card mb-3">
-                        <div class="card-header">
-                            <h2 class="card-title">My Profile</h1>
-                                <hr>
+    h2 {
+        font-size: 2em;
+        color: black;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh; 
+      }
+      
+    main {
+    flex-grow: 1; 
+    }
+    
+    footer {
+    flex-shrink: 0; 
+    margin-top: auto !important;
+    }
+</style>
+<div class="Profile">
+    <main class="my-5">
+        <div class="justify-content-md-center"
+            style="margin-bottom: 15%; border-style:none; margin-left: 15%; margin-right: 15%;">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h2 class="card-title">My Profile</h1>
+                        <hr>
+                </div>
+                <div class="card-body">
+                    <p class="card-text" style=" font-size: 1.2em; color: black;">
+                        👤 <%= userFirstName %>
+                        <%= userLastName %>
+                    </p>
+                    <p class="card-text text-dark">
+                        📧 <%= userEmail %>
+                    </p>
+                    <p class="card-text text-dark">
+                        <%= userType %>
+                    </p>
+                    <div class="btn-group d-flex justify-content-between" style="margin-top: 10%;">
+                        <button class="btn btn-outline-primary flex-grow-1 mr-2" data-toggle="modal" data-target="#editModal">✏️ Edit Profile</button>
+                        <button class="btn btn-outline-danger flex-grow-1" data-toggle="modal" data-target="#deleteModal">🗑️ Delete Profile</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit Modal -->
+            <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editModalLabel">Edit User</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
-                        <div class="card-body">
-                            <p class="card-text" style=" font-size: 1.2em; color: black;">
-                                👤 <%= userFirstName %>
-                                <%= userLastName %>
-                            </p>
-                            <p class="card-text text-dark">
-                                📧 <%= userEmail %>
-                            </p>
-                            <p class="card-text text-dark">
-                                <%= userType %>
-                            </p>
-                            <div class="btn-group d-flex justify-content-between" style="margin-top: 10%;">
-                                <button class="btn btn-outline-primary flex-grow-1 mr-2" onclick="editProfile()">✏️ Edit
-                                    Profile</button>
-                                <button class="btn btn-outline-danger flex-grow-1" onclick="deleteProfile()">🗑️ Delete
-                                    Profile</button>
-                            </div>
+                        <div class="modal-body">
+                            <form id="editForm">
+                                <div class="form-group">
+                                    <img src="<%=  %>" alt="Not Found" class="img-thumbnail">
+                                    <label for="userEditImage">Image:</label>
+                                    <input type="file" class="form-control" id="userEditImage" name="userEditImage" value="<%=  %>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="userEditFirstName">First Name:</label>
+                                    <input type="text" class="form-control" id="userEditFirstName" name="userEditFirstName" value="<%= userFirstName %>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="userEditLastName">Last Name:</label>
+                                    <input type="text" class="form-control" id="userEditLastName" name="userEditLastName" value="<%= userLastName %>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="userEditEmail">Email:</label>
+                                    <input type="email" class="form-control" id="userEditEmail" name="userEditEmail" value="<%= userEmail %>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="userEditType" data-toggle="tooltip" data-placement="top" title="Type cannot be changed manually">Type:</label>
+                                    <input type="text" class="form-control" id="userEditType" name="userEditType" value="<%= userType %>" data-toggle="tooltip" data-placement="top" title="Type cannot be changed manually" disabled>
+                                </div>
+
+                                <button id="editUserButton" class="btn btn-primary">Edit</button>
+                            </form>
                         </div>
                     </div>
                 </div>
-            </main>
-        </div>
+            </div>
 
-        <%- include('partials/footer') %>
+            <!-- Delete Modal -->
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLabel">Delete User</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="deleteForm">
+                                <h3> Are you sure you want to delete this user? </h3>
+                                <button id="deleteUserButton" class="btn btn-primary">Yes</button>
+                                <button data-dismiss="modal" aria-label="Close" class="btn btn-danger">No</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<%- include('partials/footer') %>
+
+<script>
+    // Get edit and delete form
+    const editForm = document.getElementById('editForm');
+    const deleteForm = document.getElementById('deleteForm');
+
+    // Function to make a PUT request to edit data of an user
+    function editUserRequest() {
+        try {
+            const inputImage = document.getElementById("userEditImage").value;
+            const inputFirstName = document.getElementById("userEditFirstName").value;
+            const inputLastName = document.getElementById("userEditLastName").value;
+            const inputEmail = document.getElementById("userEditEmail").value;
+            const inputType = document.getElementById("userEditType").value;
+
+            const data = {
+                firstname: inputFirstName,
+                lastname: inputLastName,
+                email: inputEmail,
+                type: inputType
+            };
+
+            return fetch('/profile', {
+                method: 'PUT',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        } catch (e) {
+            console.log("Error: ", e);
+            return Promise.reject(e);
+        }
+    }
+
+    // Function to make a DELETE request to delete an event
+    document.getElementById('deleteUserButton').addEventListener('click', async (e) => {
+        try {
+            const res = await fetch("/profile", {
+                method: 'DELETE'
+            });
+        
+        } catch (e) {
+            console.log("Error: ", e);
+        }
+    });
+
+    // Call editEventRequest when edit button is clicked
+    document.getElementById('editUserButton').addEventListener('click', async (e) => {
+        e.preventDefault();
+        try {
+            const res = await editUserRequest();
+
+            if (res.status === 200) {
+                alert('User edited successfully');
+            }
+            else {
+                alert('Email already exists');
+            }
+            window.location.href = "/profile";
+
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    });
+
+</script>
