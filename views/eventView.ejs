@@ -2,21 +2,295 @@
 
 <%- include('partials/nav_bar') %>
 
-<main class="container">
-    <h2>View Events</h2>
+<section class="page-title section pb-0">
+    <div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+        <div class="text-center">
+            <h1 class="text-capitalize mb-0 text-lg"><%= eventData.name %></h1>
+        </div>
+        </div>
+    </div>
+    </div>
+</section>
 
-    <table class="table table-bordered">
-        <% data.forEach(item => { %>
-            <tr>
-                <th scope="row"><%= item.name %></th>
-                <th scope="row"><%= item.price %></th>
-                <th scope="row"><%= item.description %></th>
-                <th scope="row"><a role="button" class="btn btn-primary" href="/events/edit/<%= item.id %>">Edit</a></th>
-                <th scope="row"><a role="button" class="btn btn-danger" href="/events/delete/<%= item.id %>">Delete</a></th>
-            </tr>
-        <% }); %>
-    </table>
-</main>
+<section class="section portfolio-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <img src="images/events/1.jpg" alt="" class="img-fluid w-100">
+            </div>
+
+            <div class="col-lg-6">
+                <div class="project-info">
+                    <h3 class="mb-4"><%= new Date(eventData.date).toLocaleDateString('en-US', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}) %></h3>
+                    <p>From <%= eventData.startTime %> to <%= eventData.endTime %></p>
+                    
+                    <h5 class="mb-0">Description</h5>
+                    <p><%= eventData.description %></p>
+
+                    <div class="row mt-4">
+                        <div class="col-lg-6">
+                                <div class="info">
+                                    <h5 class="mb-0">Organizer</h5>
+                                    <p><%= organizer.firstname %> <%= organizer.lastname %></p>
+                                </div>
+
+                                <div class="info">
+                                    <h5 class="mb-0">Address</h5>
+                                    <p><%= eventData.address %></p>
+                                </div>
+
+                                <% if (!userData._id) { %>
+                                    <div class="mt-4">
+                                        <a type="button" class="btn btn-main btn-small" href="/signup">Register to get some tickets!</a>
+                                    </div>
+                                <%  } else if (organizer._id.equals(userData._id)) { %>
+                                    <div class="mt-4">
+                                        <button type="button" class="btn btn-main btn-small" data-toggle="modal" data-target="#editModal">Edit</button>
+                                    </div>
+
+                                    <div class="mt-4">
+                                        <button type="button" class="btn btn-main btn-small" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                                    </div>
+                                <% } else { %>
+                                    <div class="mt-4">
+                                        <button type="button" class="btn btn-main btn-small" data-toggle="modal" data-target="#ticketModal">Get Tickets</button>
+                                    </div>
+                                <% } %>
+                                
+                        </div>
+
+                        <!-- Ticket Modal -->
+                        <div class="modal fade" id="ticketModal" tabindex="-1" role="dialog" aria-labelledby="ticketModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="ticketModalLabel">Select Tickets</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="ticketForm">
+                                            <div class="form-group">
+                                                <label for="ticketQuantity">Number of Tickets:</label>
+                                                <input type="number" class="form-control" id="ticketQuantity" name="ticketQuantity" min="1" max="10" value="1">
+                                            </div>
+                                            <div class="form-group">
+                                                <p>Price per ticket: $<span id="ticketPrice"><%= eventData.price %></span></p>
+                                                <p>Total Cost: $<span id="totalCost"><%= eventData.price %></span></p>
+                                            </div>
+                                            <button class="btn btn-primary">Checkout</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Edit Modal -->
+                        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editModalLabel">Edit Event</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="editForm">
+                                            <div class="form-group">
+                                                <img src="<%= eventData.image %>" alt="Not Found" class="img-thumbnail">
+                                                <label for="eventEditImage">Image:</label>
+                                                <input type="file" class="form-control" id="eventEditImage" name="eventEditImage" value="<%= eventData.img %>" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="eventEditName">Name:</label>
+                                                <input type="text" class="form-control" id="eventEditName" name="eventEditName" value="<%= eventData.name %>" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="eventEditPrice">Price:</label>
+                                                <input type="number" class="form-control" id="eventEditPrice" name="eventEditPrice" value="<%= eventData.price %>" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="eventEditDescription">Description:</label>
+                                                <input type="textarea" class="form-control" id="eventEditDescription" name="eventEditDescription" value="<%= eventData.description %>" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="eventEditCategory">Category:</label>
+                                                <select class="form-control" id="eventEditCategory" name="eventEditCategory" required>
+                                                    <option value="<%= eventData.category %>" disabled selected>New Category</option>
+                                                    <option value="concerts">Concerts</option>
+                                                    <option value="parties">Parties</option>
+                                                    <option value="socials">Socials</option>
+                                                    <option value="food">Food</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="eventEditAddress">Address:</label>
+                                                <input type="text" class="form-control" id="eventEditAddress" name="eventEditAddress" value="<%= eventData.address %>" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="eventEditDate">Date:</label>
+                                                <input type="date" class="form-control" id="eventEditDate" name="eventEditDate" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="eventEditStartTime">Start Time:</label>
+                                                <input type="time" class="form-control" id="eventEditStartTime" name="eventEditStartTime" value="<%= eventData.startTime %>" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="eventEditEndTime">End Time:</label>
+                                                <input type="time" class="form-control" id="eventEditEndTime" name="eventEditEndTime" value="<%= eventData.endTime %>" required>
+                                            </div>
+                                            
+                                            <button id="editEventButton" class="btn btn-primary">Edit</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Delete Modal -->
+                        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel">Delete Event</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="deleteForm">
+                                            <h3> Are you sure you want to delete this event? </h3>
+                                            <button id="deleteEventButton" class="btn btn-primary">Yes</button>
+                                            <button data-dismiss="modal" aria-label="Close" class="btn btn-danger">No</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-6">
+                            <div class="info">
+                                <h5 class="mb-0">Price</h5>
+                                <p>$<%= eventData.price %></p>  
+                            </div>
+
+                            <div class="info">
+                                <h5>Share</h5>
+                                <a href="https://www.facebook.com/"><i class="ti-facebook"></i></a>
+                                <a href="https://twitter.com/"><i class="ti-twitter"></i></a>
+                                <a href="https://www.pinterest.ca/"><i class="ti-pinterest"></i></a>
+                                <a href="https://dribbble.com/"><i class="ti-dribbble"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</section>
+
+
+
+<section class="section service-home border-top">
+<%- include('partials/carousel') %>
+</section>
+
 
 <%- include('partials/footer') %>
 
+<script>
+     // Get the ID from the URL
+     const currentURL = window.location.pathname;
+     const urlParts = currentURL.split('/');
+     const eventId = urlParts[urlParts.length - 1]; 
+
+    // Get edit and delete form
+    const editForm = document.getElementById('editForm');
+    const deleteForm = document.getElementById('deleteForm');
+
+    // Function to make a PUT request to edit data of an event
+    function editEventRequest() {
+        try {
+            const inputImage = document.getElementById("eventEditImage").value;
+            const inputName = document.getElementById("eventEditName").value;
+            const inputPrice = document.getElementById("eventEditPrice").value;
+            const inputDescription = document.getElementById("eventEditDescription").value;
+            const inputCategory = document.getElementById("eventEditCategory").value;
+            const inputAddress = document.getElementById("eventEditAddress").value;
+            const inputDate = document.getElementById("eventEditDate").value;
+            const inputStartTime = document.getElementById("eventEditStartTime").value;
+            const inputEndTime = document.getElementById("eventEditEndTime").value;
+    
+            const data = {
+                name: inputName,
+                price: inputPrice,
+                description: inputDescription,
+                category: inputCategory,
+                address: inputAddress,
+                date: inputDate,
+                startTime: inputStartTime,
+                endTime: inputEndTime
+            };
+    
+            console.log("This is the data:", data);
+    
+            return fetch('/events/view/' + eventId, {
+                method: 'PUT',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        } catch (e) {
+            console.log("Error: ", e);
+            return Promise.reject(e);
+        }
+    }
+
+    // Function to make a DELETE request to delete an event
+    deleteEventButton.addEventListener('click', async (e) => {
+        try {
+            const res = await fetch("/events/view/" + eventId, {
+                method: 'DELETE'
+            });
+    
+            const redirectURL = await res.text();
+
+            if (res.ok) {
+                alert('Event deleted successfully');
+            }
+            
+            window.location.href = redirectURL; 
+        } catch (e) {
+            console.log("Error: ", e);
+        }
+    });
+    
+    // Call editEventRequest when edit button is clicked
+    document.getElementById('editEventButton').addEventListener('click', async (e) => {
+        e.preventDefault();
+        try {
+            const res = await editEventRequest();
+            const redirectURL = await res.text();
+    
+            if (res.ok) {
+                alert('Event edited successfully');
+                window.location.href = redirectURL;
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    });
+    
+</script>

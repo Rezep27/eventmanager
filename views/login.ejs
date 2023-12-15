@@ -38,7 +38,6 @@
 
                             <div class="legends">
                                 <div><a href="/signup">Don't have an account?</a></div>
-                                <div><a href="/forgot-password">Forgot password?</a></div>
                             </div>
                         </form>
                     </main>
@@ -64,7 +63,13 @@
                 headers: { 'Content-Type': 'application/json' }
             });
 
-            window.location.href = "/"; 
+            const redirectRes = await res.text();
+
+            if (redirectRes === 'ok') {
+                window.location.href = "/"; 
+            } else {
+                window.location.href = redirectRes
+            }
 
         } catch (ex) {
             console.error("Following error occurred: ", ex);

@@ -35,16 +35,19 @@
 </nav>
 
 <script>
-  document.getElementById('logout').addEventListener('click',async function(event) {
-    event.preventDefault();
-
-    await fetch('/logout', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-
-    window.location.href = "/"; 
-  });
+  const logout = document.getElementById('logout')
+  if (logout){
+    logout.addEventListener('click',async function(event) {
+      event.preventDefault();
+  
+      await fetch('/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+  
+      window.location.href = "/"; 
+    });
+  }
 </script>

@@ -64,16 +64,16 @@
                 headers: {'Content-Type': 'application/json'}
             });
 
-            if (res.ok) {
-                alert('Thanks you for signing up!');
-            } else {
-                const errorMessage = await res.text();
-                throw new Error(`Server responded with ${res.status}: ${errorMessage}`);
-            }
+            const redirectRes = await res.text();
 
-            window.location.href = "/"; 
-        } catch (ex) {
-            console.error("Following error occurred: ", ex);
+            if (redirectRes === 'ok') {
+                alert('Thanks you for signing up!');
+                window.location.href = "/"; 
+            } else {
+                window.location.href = redirectRes
+            }
+        } catch (e) {
+            console.error("Following error occurred: ", e);
         }
     });
 </script>
