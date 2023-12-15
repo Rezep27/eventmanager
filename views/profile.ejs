@@ -100,11 +100,6 @@
                         <div class="modal-body">
                             <form id="editForm">
                                 <div class="form-group">
-                                    <img src="<%=  %>" alt="Not Found" class="img-thumbnail">
-                                    <label for="userEditImage">Image:</label>
-                                    <input type="file" class="form-control" id="userEditImage" name="userEditImage" value="<%=  %>" required>
-                                </div>
-                                <div class="form-group">
                                     <label for="userEditFirstName">First Name:</label>
                                     <input type="text" class="form-control" id="userEditFirstName" name="userEditFirstName" value="<%= userFirstName %>" required>
                                 </div>
@@ -163,7 +158,6 @@
     // Function to make a PUT request to edit data of an user
     function editUserRequest() {
         try {
-            const inputImage = document.getElementById("userEditImage").value;
             const inputFirstName = document.getElementById("userEditFirstName").value;
             const inputLastName = document.getElementById("userEditLastName").value;
             const inputEmail = document.getElementById("userEditEmail").value;
